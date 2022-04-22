@@ -20,12 +20,12 @@ build:
 requirements:
   host:
     - pip
-    - python
+    - python >=3.5
     - setuptools
   run:
-    - python
-    - pyepics >=3.4.1
     - pcaspy
+    - python >=3.5
+    - pyepics >=3.4.1
     - six
 
 test:
