@@ -8,6 +8,9 @@ package:
 source:
   url: https://git.ligo.org/cds/python-ezca/-/archive/{{ version }}/python-ezca-{{ version }}.tar.gz
   sha256: 70216a552302f489166a266222e0910632ee2423f3bbbe7a5015db9606960e02
+  patches:
+    # https://git.ligo.org/cds/python-ezca/-/commit/f9e0b052214f41d72f4c45a336c91e104a3ce720
+    - 0001-setup.py-fix-install_requires.patch
 
 build:
   number: 1
