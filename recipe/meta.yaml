@@ -8,34 +8,34 @@ package:
 source:
   url: https://git.ligo.org/cds/python-ezca/-/archive/{{ version }}/python-ezca-{{ version }}.tar.gz
   sha256: 70216a552302f489166a266222e0910632ee2423f3bbbe7a5015db9606960e02
+  patches:
+    # https://git.ligo.org/cds/python-ezca/-/commit/f9e0b052214f41d72f4c45a336c91e104a3ce720
+    - 0001-setup.py-fix-install_requires.patch
 
 build:
-  number: 0
+  number: 1
   noarch: python
-  script: "{{ PYTHON }} -m pip install . -vv "
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python
+    - python >=3.5
     - setuptools
   run:
-    - python
-    - pyepics >=3.4.1
     - pcaspy
+    - python >=3.5
+    - pyepics >=3.4.1
     - six
 
 test:
-  imports:
-    - ezca
-    - ezca.cached
-    - ezca.const
-    - ezca.emulators
-    - ezca.errors
-    - ezca.ezca
-    - ezca.ezcaPV
-    - ezca.ligofilter
-    - ezca.ramp
+  requires:
+    - pip
+  commands:
+    # check requirements
+    - python -m pip check
+    # run test suite
+    - python -m unittest discover ezca.tests
 
 about:
   home: https://git.ligo.org/cds/python-ezca/
