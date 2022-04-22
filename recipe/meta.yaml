@@ -10,9 +10,9 @@ source:
   sha256: 70216a552302f489166a266222e0910632ee2423f3bbbe7a5015db9606960e02
 
 build:
-  number: 0
+  number: 1
   noarch: python
-  script: "{{ PYTHON }} -m pip install . -vv "
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
@@ -26,16 +26,13 @@ requirements:
     - six
 
 test:
-  imports:
-    - ezca
-    - ezca.cached
-    - ezca.const
-    - ezca.emulators
-    - ezca.errors
-    - ezca.ezca
-    - ezca.ezcaPV
-    - ezca.ligofilter
-    - ezca.ramp
+  requires:
+    - pip
+  commands:
+    # check requirements
+    - python -m pip check
+    # run test suite
+    - python -m unittest discover ezca.tests
 
 about:
   home: https://git.ligo.org/cds/python-ezca/
