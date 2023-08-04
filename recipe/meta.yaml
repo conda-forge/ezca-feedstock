@@ -1,19 +1,16 @@
 {% set name = "ezca" %}
-{% set version = "1.4.0" %}
+{% set version = "1.5.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://git.ligo.org/cds/python-ezca/-/archive/{{ version }}/python-ezca-{{ version }}.tar.gz
-  sha256: 70216a552302f489166a266222e0910632ee2423f3bbbe7a5015db9606960e02
-  patches:
-    # https://git.ligo.org/cds/python-ezca/-/commit/f9e0b052214f41d72f4c45a336c91e104a3ce720
-    - 0001-setup.py-fix-install_requires.patch
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 35b7dc15b08abb829712b7f40a35a4ab4ceba497cd21229ea9b644d9cdef5d13
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
@@ -22,27 +19,30 @@ requirements:
     - pip
     - python >=3.5
     - setuptools
+    - setuptools-scm
   run:
     - pcaspy
     - python >=3.5
-    - pyepics >=3.4.1
-    - six
+    - pyepics >=3.4.1    
 
 test:
   requires:
     - pip
+    - pytest
+  imports:
+    - ezca
   commands:
-    # check requirements
-    - python -m pip check
-    # run test suite
-    - python -m unittest discover ezca.tests
+    - pip check
+    - python -m pytest --pyargs ezca
 
 about:
-  home: https://git.ligo.org/cds/python-ezca/
-  dev_url: https://git.ligo.org/cds/python-ezca/
+  home: https://git.ligo.org/cds/software/python-ezca/
+  dev_url: https://git.ligo.org/cds/software/python-ezca/
   license: GPL-3.0-or-later
   license_family: GPL
-  license_file: COPYING
+  license_file:
+    - COPYING
+    - COPYING-GPL-3
   summary: aLIGO CDS Python EPICS interface
   description: |
     Ezca is a wrapping around pyepics containing methods specially
@@ -59,3 +59,4 @@ extra:
   recipe-maintainers:
     - duncanmmacleod
     - jrollins
+    - evonreis
