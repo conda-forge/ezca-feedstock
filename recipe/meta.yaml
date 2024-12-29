@@ -6,29 +6,30 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 35b7dc15b08abb829712b7f40a35a4ab4ceba497cd21229ea9b644d9cdef5d13
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python {{ python_min }}
     - setuptools
     - setuptools-scm
   run:
     - pcaspy
-    - python >=3.5
+    - python >={{ python_min }}
     - pyepics >=3.4.1    
 
 test:
   requires:
     - pip
     - pytest
+    - python {{ python_min }}
   imports:
     - ezca
   commands:
